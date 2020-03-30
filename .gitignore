@@ -1,0 +1,12 @@
+# Development environment
+.vscode
+env
+**/TODO
+
+# Python-specific
+**.pyc
+**/__pycache__
+
+# Project-specific
+next_batch
+config.yml

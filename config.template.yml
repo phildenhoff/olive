@@ -1,0 +1,15 @@
+# Basic config
+# You MUST update these values!
+username: "YOUR-BOTS-MATRIX-USERNAME"
+password: "YOUR-PASSWORD-HERE"
+base_url: "YOUR-BASE-DOMAIN-NAME"
+matrix_url: "YOUR-MATRIX-DOMAIN"
+
+# Matrix names such as @phil:denhoff.ca are broken down here as
+# @<username>:<base_url>
+# We need your password to sign in as the bot's user account and the
+# matrix_url to know what to talk to. This is often matrix.<base_url>
+
+# Advanced configuration
+# You probably do not need to update these settings.
+next_batch_file: "next_batch"
