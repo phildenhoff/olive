@@ -1,6 +1,7 @@
 # Development environment
 .vscode
 env
+.env
 **/TODO
 
 # Python-specific

@@ -2,13 +2,16 @@ import sys
 
 from nio import AsyncClient, RoomSendError, SendRetryError
 
-class Messenger():
+
+class Messenger:
     client: AsyncClient = None
 
     def __init__(self, client: AsyncClient) -> None:
         self.client = client
 
-    async def send_text(self, room_id: str, body: str, formatted_body: str = None) -> None:
+    async def send_text(
+        self, room_id: str, body: str, formatted_body: str = None
+    ) -> None:
         """Sends a text message to a room.
 
         Arguments:
@@ -20,22 +23,21 @@ class Messenger():
         """
 
         assert isinstance(body, str)
-        content = {
-            "msgtype": "m.text",
-            "body": body
-        }
+        content = {"msgtype": "m.text", "body": body}
         if formatted_body:
-                content.update({
-                    "format": "org.matrix.custom.html",
-                    "formatted_body": formatted_body
-                })
+            content.update(
+                {"format": "org.matrix.custom.html", "formatted_body": formatted_body}
+            )
 
         try:
-            send_status = await self.client.room_send(room_id,
-                message_type="m.room.message",
-                content = content)
+            send_status = await self.client.room_send(
+                room_id, message_type="m.room.message", content=content
+            )
         except SendRetryError as err:
-            print(f"Failed to send message '{body}' to room '{room}'. Error:\n{err}", file=sys.stderr)
+            print(
+                f"Failed to send message '{body}' to room '{room_id}'. Error:\n{err}",
+                file=sys.stderr,
+            )
 
         if isinstance(send_status, RoomSendError):
             print(send_status, file=sys.stderr)
