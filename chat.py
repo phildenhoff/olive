@@ -213,27 +213,9 @@ class Session:
             room.room_id, event.event_id, event.event_id
         )
 
-        # tokens = list(filter(lambda x: x != " " and x != "", event.body.split(" ")))
-
         if event.sender == self.client.user_id:
             # Message is from us; we can ignore.
             return
-
-        # # TODO: Clean up this logic
-        # if room.is_group and room.member_count == 2:
-        #     if not tokens[0].startswith(self.config.username):
-        #         tokens = [self.config.username] + tokens
-
-        # if not tokens[0].startswith(self.config.username):
-        #     return
-        # else:
-        #     # Standardise `tokens` by removing the username
-        #     tokens = tokens[1:]
-
-        # # System-related commands?
-        # if (tokens[0] == "plugin" and tokens[1] == "reload") or tokens[0] == "pr":
-        #     self.load_plugins()
-        #     return
 
         for name, plugin in self.plugins.items():
             try:
@@ -247,19 +229,6 @@ class Session:
                 )
                 _, _, tb = sys.exc_info()
                 traceback.print_tb(tb)
-
-        # if not matched:
-        #     now = datetime.now()
-
-        #     print(
-        #         "Didn't understand message from room {} \n\tmessage: {}: '{}' \n\tserver timestamp: {} \n\treceived: {}".format(
-        #             room.display_name,
-        #             room.user_name(event.sender),
-        #             event.body,
-        #             event.server_timestamp,
-        #             now,
-        #         )
-        #     )
 
     async def __sync_cb(self, response: SyncResponse) -> None:
         with open(self.config.next_batch_file, "w") as next_batch_token:
